@@ -23,7 +23,7 @@
     * [FrameBuffer version](#framebuffer-version)
       * [Display text and draw lines with dynamic object spacing](#display-text-and-draw-lines-with-dynamic-object-spacing-1)
       * [Display boxes and inverted boxes](#display-boxes-and-inverted-boxes-1)
-      * [Display text and draw lines with dynamic object spacing](#display-text-and-draw-lines-with-dynamic-object-spacing-2)
+      * [Pixelated static of varying sizes](#pixelated-static-of-varying-sizes)
 * [Thank You <3](#thank-you-3)
 <!-- TOC -->
 
@@ -324,7 +324,7 @@ There is a noticeable performance difference here, but its true potential can be
 
 ![Display boxes and inverted boxes](_images/display_box_shapes.jpg)
 
-#### Display text and draw lines with dynamic object spacing
+#### Pixelated static of varying sizes
 
 **CODE**: [EXAMPLES/Static_fb.py](EXAMPLES/Static_fb.py)
 
