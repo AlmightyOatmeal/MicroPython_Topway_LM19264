@@ -7,6 +7,7 @@ from topway.font import Aclonica_size36 as font36
 import json
 import ntptime
 import time
+import os
 import urequests
 from wifi_manager import WifiManager
 
@@ -19,7 +20,11 @@ from wifi_manager import WifiManager
 
 # Sign up for a free account at https://openweathermap.org/ to get your API key. It took about a half hour for my
 # API key to become active, which was a small annoyance, but it was worth the wait.
-OPENWEATHER_API_KEY = "<API KEY>"
+if os.stat("_weather_key"):
+    with open("_weather_key", "r") as f:
+        OPENWEATHER_API_KEY = f.read().strip()
+else:
+    OPENWEATHER_API_KEY = "<API KEY>"
 
 # https://openweathermap.org/current#name
 WX_CITY = "Milwaukee,US"
@@ -314,6 +319,8 @@ def my_connection_handler(event, **kwargs):
     elif event == 'connection_failed':
         print(f"[INFO] Failed to connect to: {kwargs.get('attempted_networks')}")
         WifiManager.setup_network()
+    elif event == '[Errno 104] ECONNRESET':
+        print(f"[ERROR] event: {event}")
 
 
 # Add the connection handler to WifiManager
@@ -325,8 +332,7 @@ WifiManager.on_connection_change(my_connection_handler)
 #
 
 lcd = LM19264(
-    # db_pins=[8, 7, 6, 5, 4, 3, 2, 1],  # DB7–DB0 -- LCD pin 1 = DB7, weirdos lol
-    db0=8, db1=7, db2=6, db3=5, db4=4, db5=3, db6=2, db7=1,  # DB7–DB0
+    db0=8, db1=7, db2=6, db3=5, db4=4, db5=3, db6=2, db7=1,
     e=9, rw=10, rs=11, csa=13, csb=12, rstb=14
 )
 
@@ -345,9 +351,9 @@ bitmap = lcd.overlay_bitmap(base_bitmap=bitmap, overlay_bitmap=img, x=0, y=0, mo
 bitmap = lcd.draw_text(bitmap=bitmap, text="WAITING", x=95, y=15, font_map=font12)
 bitmap = lcd.draw_text(bitmap=bitmap, text="FOR WIFI", x=95, y=35, font_map=font12)
 
-packed = lcd.pack_bitmap(bitmap=bitmap, width=width, height=height)
+packed = lcd.pack_bitmap(bitmap=bitmap)
 
-lcd.display_bitmap(bitmap=packed, width=width, height=height)
+lcd.display_bitmap(bitmap=packed)
 
 # Try to connect to Wi-Fi after setting the initial display message.
 WifiManager.setup_network()
@@ -438,8 +444,8 @@ while True:
 
         bitmap = lcd.draw_text(bitmap=bitmap, text=formatted_time_str, x=67, y=32, font_map=font36)
 
-        packed = lcd.pack_bitmap(bitmap=bitmap, width=width, height=height)
-        lcd.display_bitmap(bitmap=packed, width=width, height=height)
+        packed = lcd.pack_bitmap(bitmap=bitmap)
+        lcd.display_bitmap(bitmap=packed)
 
     # Update the time every interval, but I would recommend updating the weather every 5, or more, minutes to save on
     # the number of API calls made and to keep it under the 1,000 API call limit for a free plan. If you reduce this

@@ -168,6 +168,9 @@ def my_connection_handler(event, **kwargs):
         print(f"Failed to connect to: {kwargs.get('attempted_networks')}")
         WifiManager.setup_network()
 
+    elif event == '[Errno 104] ECONNRESET':
+        print(f"[ERROR] event: {event}")
+
 
 # Add the connection handler to WifiManager
 WifiManager.on_connection_change(my_connection_handler)
@@ -254,7 +257,7 @@ def time_position_hours_with_minutes(hours: int, minutes: int):
 #
 
 lcd = LM19264(
-    db0=8, db1=7, db2=6, db3=5, db4=4, db5=3, db6=2, db7=1,  # DB7–DB0
+    db0=8, db1=7, db2=6, db3=5, db4=4, db5=3, db6=2, db7=1,
     e=9, rw=10, rs=11, csa=13, csb=12, rstb=14
 )
 
@@ -273,9 +276,9 @@ bitmap = lcd.overlay_bitmap(base_bitmap=bitmap, overlay_bitmap=img, x=0, y=0, mo
 bitmap = lcd.draw_text(bitmap=bitmap, text="WAITING", x=95, y=15, font_map=font12)
 bitmap = lcd.draw_text(bitmap=bitmap, text="FOR WIFI", x=95, y=35, font_map=font12)
 
-packed = lcd.pack_bitmap(bitmap=bitmap, width=width, height=height)
+packed = lcd.pack_bitmap(bitmap=bitmap)
 
-lcd.display_bitmap(bitmap=packed, width=width, height=height)
+lcd.display_bitmap(bitmap=packed)
 
 # Try to connect to Wi-Fi after setting the initial display message.
 WifiManager.setup_network()
@@ -326,16 +329,14 @@ while True:
             # from the x-axis because that is what `draw_graphic_lines()` expects.
 
             # Draw the hour hand with a length of 8px
-            bitmap = lcd.draw_graphic_lines(bitmap=bitmap, lines=[(cx, cy, modify_angle_ccw_x_axis(angle_hours), 14)],
-                                            width=width, height=height)
+            bitmap = lcd.draw_graphic_lines(bitmap=bitmap, lines=[(cx, cy, modify_angle_ccw_x_axis(angle_hours), 14)])
             # Draw the minute hand with a length of 13px
-            bitmap = lcd.draw_graphic_lines(bitmap=bitmap, lines=[(cx, cy, modify_angle_ccw_x_axis(angle_minutes), 24)],
-                                            width=width, height=height)
+            bitmap = lcd.draw_graphic_lines(bitmap=bitmap, lines=[(cx, cy, modify_angle_ccw_x_axis(angle_minutes), 24)])
 
             # Pack the bitmap and get it ready for display
-            packed = lcd.pack_bitmap(bitmap=bitmap, width=width, height=height)
+            packed = lcd.pack_bitmap(bitmap=bitmap)
 
             # Send the packed bitmap to the display window
-            lcd.display_bitmap(bitmap=packed, width=width, height=height)
+            lcd.display_bitmap(bitmap=packed)
 
     time.sleep(5)
