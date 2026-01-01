@@ -183,6 +183,8 @@ out.png
 edges.png
 bw_outline.png
 lcd_blue.png
+bitmap_to_png.py
+output.png
 
 # Micropython WiFiManager
 # https://github.com/mitchins/micropython-wifimanager
