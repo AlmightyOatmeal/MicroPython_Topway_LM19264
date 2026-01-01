@@ -190,6 +190,3 @@ output.png
 # https://github.com/mitchins/micropython-wifimanager
 wifi_manager.py
 networks.json
-
-# Project exclude paths
-/_datasheets/
