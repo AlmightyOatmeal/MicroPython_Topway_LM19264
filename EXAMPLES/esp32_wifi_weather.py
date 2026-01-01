@@ -319,8 +319,6 @@ def my_connection_handler(event, **kwargs):
     elif event == 'connection_failed':
         print(f"[INFO] Failed to connect to: {kwargs.get('attempted_networks')}")
         WifiManager.setup_network()
-    elif event == '[Errno 104] ECONNRESET':
-        print(f"[ERROR] event: {event}")
 
 
 # Add the connection handler to WifiManager
