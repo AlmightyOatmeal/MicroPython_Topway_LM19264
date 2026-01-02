@@ -9,6 +9,8 @@
   * [Interface](#interface)
   * [Example Wiring](#example-wiring)
     * [Example Wiring for an ESP32 S2 Mini](#example-wiring-for-an-esp32-s2-mini)
+      * [Without Level Shifters](#without-level-shifters)
+      * [With Level Shifters](#with-level-shifters)
   * [Fonts](#fonts)
   * [Example Code](#example-code)
     * [Bitmap Version](#bitmap-version)
