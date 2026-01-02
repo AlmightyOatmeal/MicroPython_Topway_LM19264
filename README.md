@@ -135,7 +135,40 @@ The supplemental board that comes with this is essentially what I'm doing here b
 
 ### Example Wiring for an ESP32 S2 Mini
 
-Because this LCD needs TTL (5v) logic levels, I used two 8-channel 3.3v/5v bi-directional level shifters. 
+The datasheet does suggest 5v logic levels, which would be beneficial for any length of cable runs using level shifters if your MCU doesn't output 5v. However, the display does seem to work ok with 3.3v logic levels with cables that are short (reduces the amount of DC voltage drop).
+
+You will have to experiment with your specific use case to see if you need to insert level shifters or not. 
+
+#### Without Level Shifters
+
+Using 3.3v logic levels:
+
+| LCD pin | ESP32 GPIO | Power                                            |
+|---------|------------|--------------------------------------------------|
+| 1       | Pin 1      |                                                  |
+| 2       | Pin 2      |                                                  |
+| 3       | Pin 3      |                                                  |
+| 4       | Pin 4      |                                                  |
+| 5       | Pin 5      |                                                  |
+| 6       | Pin 6      |                                                  |
+| 7       | Pin 7      |                                                  |
+| 8       | Pin 8      |                                                  |
+| 9       | Pin 9      |                                                  |
+| 10      | Pin 10     |                                                  |
+| 11      | Pin 11     |                                                  |
+| 12      |            | (wiper of variable resistor)                     |
+| 13      |            | VBUS +5v (also to side leg of variable resistor) |
+| 14      |            | GND                                              |
+| 15      | Pin 13     |                                                  |
+| 16      | Pin 12     |                                                  |
+| 17      |            | (side leg of variable resistor                   |
+| 18      | Pin 14     |                                                  |
+| 19      |            | VBUS +5v (full brightness)                       |
+| 20      |            | GND                                              |
+
+#### With Level Shifters
+
+I used two 8-channel 3.3v/5v bi-directional level shifters in this example: 
 
 | LCD pin | Level Shifter | ESP32 GPIO | Power                                            |
 |---------|---------------|------------|--------------------------------------------------|
