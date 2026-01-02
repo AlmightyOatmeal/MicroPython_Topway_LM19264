@@ -133,6 +133,8 @@ The supplemental board that comes with this is essentially what I'm doing here b
 
 ## Example Wiring
 
+This has been tested on an ESP32 S2 Mini and Raspberry Pi Pico. 
+
 ### Example Wiring for an ESP32 S2 Mini
 
 The datasheet does suggest 5v logic levels, which would be beneficial for any length of cable runs using level shifters if your MCU doesn't output 5v. However, the display does seem to work ok with 3.3v logic levels with cables that are short (reduces the amount of DC voltage drop).
