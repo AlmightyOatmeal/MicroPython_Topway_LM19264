@@ -56,6 +56,7 @@ If you like my work and would like to buy me a coffee, please consider donating 
 
 * Hardware:
   * Tested on ESP32 S2 Mini
+  * Raspberry Pi Pico
 
 ## Display Features
 
